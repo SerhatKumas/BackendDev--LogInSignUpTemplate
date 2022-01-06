@@ -1,9 +1,9 @@
 <?php
 
-$servername = "localhost:3325";
-$username = "root";
+$servername = "serveername:portnumber";// add port number if needed
+$username = "username";
 $password = "";
-$dbname = "loginproject";
+$dbname = "databaseName";
 $userEmail = " " ;
 
 
