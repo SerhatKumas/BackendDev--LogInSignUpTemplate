@@ -5,37 +5,40 @@ $username = "root";
 $password = "";
 $dbname = "loginproject";
 $userEmail = " " ;
+$userPassword = " " ;
 
 
 // Create connection
-$conn = new mysqli($servername, $username, $password,$dbname);
+$conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-//chech requset typw sent from html 
+//chech requset type sent from html 
 if ($_SERVER["REQUEST_METHOD"]=="POST"){
 
 // take email from html form
-$userEmail = test_input($_POST["email"]) ;  
+$userEmail = test_input($_POST["email"]) ;
+$userPassword = test_input($_POST["password"]) ;  
 
 //check whether email is existed in database
-$sql = "SELECT email FROM users WHERE email='".$userEmail."'";
+$sql = "SELECT Password FROM users WHERE email='".$userEmail."'";
 $result = $conn->query($sql);
+$row = $result->fetch_assoc();
 
-//if email existed direct to the Log in Page
-if ($result->num_rows > 0) {
-  header("Location:../Html-files/logIn.html");
+//if password entered correctly direct page to welcome
+if($userPassword == $row['Password']){
+  header("Location:../Html-files/welcome.html");
 }
-//if not existed direct to the sign up page
+//if not send to login html and give warning
 else{
-  header("Location:../Html-files/signUp.html");
+  header("Location:../Html-files/login.html");
+}
 }
 
-}
-//close database conection
+//closing database connection
 $conn->close();
 
 //function that clans string from unwanted chars
