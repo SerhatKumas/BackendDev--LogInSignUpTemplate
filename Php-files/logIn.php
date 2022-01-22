@@ -1,19 +1,13 @@
 <?php
-$servername = "serveername:portnumber";// add port number if needed
-$username = "username";
-$password = "";
-$dbname = "databaseName";
-$userEmail = " " ;
-$userPassword = " " ;
 
+//import functions
+require_once("functions.php");
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = startConnection("localhost:3325", "root", "", "loginproject");
 
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
+$userEmail = " " ;
+$userPassword = " " ;
 
 //chech requset type sent from html 
 if ($_SERVER["REQUEST_METHOD"]=="POST"){
@@ -39,13 +33,5 @@ else{
 
 //closing database connection
 $conn->close();
-
-//function that clans string from unwanted chars
-function test_input($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-  }
 
 ?>
