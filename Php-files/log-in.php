@@ -4,7 +4,7 @@
 require_once("functions.php");
 
 // Create connection
-$conn = startConnection("localhost:3325", "root", "", "loginproject");
+$conn = startConnection("servername:portnumber", "DBusername", "DBpassword", "DBname");
 
 $userEmail = " " ;
 $userPassword = " " ;
@@ -12,12 +12,12 @@ $userPassword = " " ;
 //chech requset type sent from html 
 if ($_SERVER["REQUEST_METHOD"]=="POST"){
 
-// take email from html form
-$userEmail = test_input($_POST["email"]) ;
-$userPassword = test_input($_POST["password"]) ;  
+// take email from html form and hash it
+$userEmail =hashing(test_input($_POST["email"]));
+$userPassword =hashing(test_input($_POST["password"])) ;  
 
 //check whether email is existed in database
-$sql = "SELECT Password FROM users WHERE email='".$userEmail."'";
+$sql = "SELECT Password FROM users WHERE email='$userEmail'";
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 

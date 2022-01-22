@@ -21,5 +21,9 @@ function test_input($data) {
     $data = htmlspecialchars($data);
     return $data;
   }
+
+  function hashing($param){
+    return hash("md5",$param); // hashing function name , thing that will be hashed
+  }
   
 ?>

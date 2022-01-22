@@ -4,7 +4,7 @@
 require_once("functions.php");
 
 // Create connection
-$conn = startConnection("localhost:3325", "root", "", "loginproject");
+$conn = startConnection("servername:portnumber", "DBusername", "DBpassword", "DBname");
 
 $userEmail = " " ;
 $userName = " " ;
@@ -14,14 +14,14 @@ $userPasswordAgain = " " ;
 //chech requset type sent from html 
 if ($_SERVER["REQUEST_METHOD"]=="POST"){
 
-// take email from html form
-$userEmail = test_input($_POST["email"]) ;  
-$userName = test_input($_POST["fullname"]) ;  
-$userPassword = test_input($_POST["password"]) ;  
+// take user info from html form and hash them all
+$userEmail = hashing(test_input($_POST["email"])) ;  
+$userName = hashing(test_input($_POST["fullname"])) ;  
+$userPassword = hashing(test_input($_POST["password"])) ;  
 
 //adding new record to database
 $sql = "INSERT INTO users
-            (name, email, password)
+            (fullname, email, password)
             VALUES
             ('$userName',
                         '$userEmail',
