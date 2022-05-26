@@ -4,7 +4,7 @@
 require_once("functions.php");
 
 // Create connection
-$conn = startConnection("servername:portnumber", "DBusername", "DBpassword", "DBname");
+$conn = startConnection("localhost:3308", "root", "", "deneme");
 
 $userEmail = " " ;
 $userPassword = " " ;
@@ -12,18 +12,20 @@ $userPassword = " " ;
 //chech requset type sent from html 
 if ($_SERVER["REQUEST_METHOD"]=="POST"){
 
-// take email from html form and hash it
-$userEmail =hashing(test_input($_POST["email"]));
-$userPassword =hashing(test_input($_POST["password"])) ;  
+// take email from html form 
+$userEmail = (test_input($_POST["email"]));
+$userPassword = (test_input($_POST["password"])) ;  
 
 //check whether email is existed in database
-$sql = "SELECT Password FROM users WHERE email='$userEmail'";
+$sql = "SELECT password FROM users WHERE email='$userEmail'";
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 
 //if password entered correctly direct page to welcome
-if($userPassword == $row['Password']){
+if($userPassword == $row['password']){
+
   header("Location:../Html-files/welcome.html");
+
 }
 //if not send to login html and give warning
 else{
